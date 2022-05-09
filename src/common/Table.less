@@ -1,0 +1,70 @@
+//table
+.table {
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  &__body-cell,
+  &__header-cell {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  &__header-cell {
+    background-color: #f1f4f8;
+    cursor: pointer;
+
+    &_sort,
+    &_sort_asc,
+    &_sort_desc {
+      &::after {
+        margin-left: 8px;
+        content: '↑↓';
+      }
+
+      &_desc::after,
+      &_asc::after {
+        color: red;
+      }
+
+      &_desc::after {
+        content: '↓';
+      }
+
+      &_asc::after {
+        content: '↑';
+      }
+    }
+  }
+}
+
+//pagination
+.pagination {
+  text-align: right;
+  margin-top: 12px;
+
+  &__previous,
+  &__next {
+    color: blue;
+    cursor: pointer;
+    margin-left: 12px;
+
+    &.disabled {
+      cursor: unset;
+      color: grey;
+    }
+  }
+
+  &__page,
+  &__goto {
+    margin-left: 12px;
+
+    &-input {
+      width: 30px;
+      margin-left: 4px;
+      border: 1px solid #999;
+    }
+  }
+}
+

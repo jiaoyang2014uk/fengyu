@@ -1,0 +1,84 @@
+// Vitest Snapshot v1
+
+exports[`header slot and body slot 1`] = `
+"<div class=\\"table\\">
+  <table class=\\"table__table\\">
+    <thead>
+      <tr>
+        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">NAME</span><span class=\\"table__header-cell_sort\\" style=\\"display: none;\\"></span></th>
+        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Age</span><span class=\\"table__header-cell_sort\\"></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class=\\"table__body-row\\">
+        <td class=\\"table__body-cell\\"><span>Bob</span></td>
+        <td class=\\"table__body-cell\\"><span>Bob(27)</span></td>
+      </tr>
+      <tr class=\\"table__body-row\\">
+        <td class=\\"table__body-cell\\"><span>Tom</span></td>
+        <td class=\\"table__body-cell\\"><span>Tom(20)</span></td>
+      </tr>
+      <tr class=\\"table__body-row\\">
+        <td class=\\"table__body-cell\\"><span>Alice</span></td>
+        <td class=\\"table__body-cell\\"><span>Alice(23)</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class=\\"pagination\\" style=\\"display: none;\\"><span class=\\"pagination__total\\">Total 3 items</span><span class=\\"pagination__previous disabled\\">Previous</span><span class=\\"pagination__next disabled\\">Next</span><span class=\\"pagination__page\\">( 1 / 1 )</span><span class=\\"pagination__goto\\">Go to<input type=\\"text\\" class=\\"pagination__goto-input\\"></span></div>
+</div>"
+`;
+
+exports[`mount component 1`] = `
+"<table>
+  <thead>
+    <th>
+    <td></td>
+    </th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>hello table</td>
+    </tr>
+  </tbody>
+</table>"
+`;
+
+exports[`mount component without props 1`] = `
+"<div class=\\"table\\">
+  <table class=\\"table__table\\">
+    <thead>
+      <tr></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div class=\\"pagination\\" style=\\"display: none;\\"><span class=\\"pagination__total\\">Total 0 items</span><span class=\\"pagination__previous disabled\\">Previous</span><span class=\\"pagination__next disabled\\">Next</span><span class=\\"pagination__page\\">( 1 / 0 )</span><span class=\\"pagination__goto\\">Go to<input type=\\"text\\" class=\\"pagination__goto-input\\"></span></div>
+</div>"
+`;
+
+exports[`props with columns and data 1`] = `
+"<div class=\\"table\\">
+  <table class=\\"table__table\\">
+    <thead>
+      <tr>
+        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span><span class=\\"table__header-cell_sort\\" style=\\"display: none;\\"></span></th>
+        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Age</span><span class=\\"table__header-cell_sort\\"></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class=\\"table__body-row\\">
+        <td class=\\"table__body-cell\\"><span>Bob</span></td>
+        <td class=\\"table__body-cell\\"><span>27</span></td>
+      </tr>
+      <tr class=\\"table__body-row\\">
+        <td class=\\"table__body-cell\\"><span>Tom</span></td>
+        <td class=\\"table__body-cell\\"><span>20</span></td>
+      </tr>
+      <tr class=\\"table__body-row\\">
+        <td class=\\"table__body-cell\\"><span>Alice</span></td>
+        <td class=\\"table__body-cell\\"><span>23</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class=\\"pagination\\" style=\\"display: none;\\"><span class=\\"pagination__total\\">Total 3 items</span><span class=\\"pagination__previous disabled\\">Previous</span><span class=\\"pagination__next disabled\\">Next</span><span class=\\"pagination__page\\">( 1 / 1 )</span><span class=\\"pagination__goto\\">Go to<input type=\\"text\\" class=\\"pagination__goto-input\\"></span></div>
+</div>"
+`;
