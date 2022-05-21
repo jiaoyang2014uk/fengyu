@@ -5,7 +5,9 @@ exports[`header slot and body slot 1`] = `
   <table class=\\"table__table\\">
     <thead>
       <tr>
-        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">NAME</span><span class=\\"table__header-cell_sort\\" style=\\"display: none;\\"></span></th>
+        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">NAME</span>
+          <!---->
+        </th>
         <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Age</span><span class=\\"table__header-cell_sort\\"></span></th>
       </tr>
     </thead>
@@ -24,23 +26,8 @@ exports[`header slot and body slot 1`] = `
       </tr>
     </tbody>
   </table>
-  <div class=\\"pagination\\" style=\\"display: none;\\"><span class=\\"pagination__total\\">Total 3 items</span><span class=\\"pagination__previous disabled\\">Previous</span><span class=\\"pagination__next disabled\\">Next</span><span class=\\"pagination__page\\">( 1 / 1 )</span><span class=\\"pagination__goto\\">Go to<input type=\\"text\\" class=\\"pagination__goto-input\\"></span></div>
+  <!---->
 </div>"
-`;
-
-exports[`mount component 1`] = `
-"<table>
-  <thead>
-    <th>
-    <td></td>
-    </th>
-  </thead>
-  <tbody>
-    <tr>
-      <td>hello table</td>
-    </tr>
-  </tbody>
-</table>"
 `;
 
 exports[`mount component without props 1`] = `
@@ -51,7 +38,7 @@ exports[`mount component without props 1`] = `
     </thead>
     <tbody></tbody>
   </table>
-  <div class=\\"pagination\\" style=\\"display: none;\\"><span class=\\"pagination__total\\">Total 0 items</span><span class=\\"pagination__previous disabled\\">Previous</span><span class=\\"pagination__next disabled\\">Next</span><span class=\\"pagination__page\\">( 1 / 0 )</span><span class=\\"pagination__goto\\">Go to<input type=\\"text\\" class=\\"pagination__goto-input\\"></span></div>
+  <!---->
 </div>"
 `;
 
@@ -60,7 +47,9 @@ exports[`props with columns and data 1`] = `
   <table class=\\"table__table\\">
     <thead>
       <tr>
-        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span><span class=\\"table__header-cell_sort\\" style=\\"display: none;\\"></span></th>
+        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span>
+          <!---->
+        </th>
         <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Age</span><span class=\\"table__header-cell_sort\\"></span></th>
       </tr>
     </thead>
@@ -79,6 +68,6 @@ exports[`props with columns and data 1`] = `
       </tr>
     </tbody>
   </table>
-  <div class=\\"pagination\\" style=\\"display: none;\\"><span class=\\"pagination__total\\">Total 3 items</span><span class=\\"pagination__previous disabled\\">Previous</span><span class=\\"pagination__next disabled\\">Next</span><span class=\\"pagination__page\\">( 1 / 1 )</span><span class=\\"pagination__goto\\">Go to<input type=\\"text\\" class=\\"pagination__goto-input\\"></span></div>
+  <!---->
 </div>"
 `;

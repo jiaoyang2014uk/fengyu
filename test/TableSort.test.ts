@@ -26,7 +26,7 @@ test('sort: build-in sort', async () => {
     });
 
     //点击一次升序
-    await wrapper.findAll('.table__header-cell_sort')[1].trigger('click')
+    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
     expect(wrapper.emitted('updateSortOptions')).toHaveLength(1)
     expect(wrapper.emitted('updateSortOptions')).toEqual([[{
         remote: undefined,
@@ -36,15 +36,15 @@ test('sort: build-in sort', async () => {
     expect(wrapper.html()).toMatchSnapshot();
 
     //点击一次降序
-    await wrapper.findAll('.table__header-cell_sort')[1].trigger('click')
+    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
     expect(wrapper.html()).toMatchSnapshot();
 
     //点击一次无序
-    await wrapper.findAll('.table__header-cell_sort')[1].trigger('click')
+    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
     expect(wrapper.html()).toMatchSnapshot();
 
     //点击未排序列 无效
-    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
+    await wrapper.findAll('.table__header-cell__value')[0].trigger('click')
     expect(wrapper.html()).toMatchSnapshot();
 });
 
@@ -65,19 +65,19 @@ test('sort: custom sort', async () => {
     });
 
     //点击一次升序
-    await wrapper.findAll('.table__header-cell_sort')[1].trigger('click')
+    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
     expect(wrapper.html()).toMatchSnapshot();
 
     //点击一次降序
-    await wrapper.findAll('.table__header-cell_sort')[1].trigger('click')
+    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
     expect(wrapper.html()).toMatchSnapshot();
 
     //点击一次无序
-    await wrapper.findAll('.table__header-cell_sort')[1].trigger('click')
+    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
     expect(wrapper.html()).toMatchSnapshot();
 
     //点击未排序列 无效
-    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
+    await wrapper.findAll('.table__header-cell__value')[0].trigger('click')
     expect(wrapper.html()).toMatchSnapshot();
 });
 
@@ -102,7 +102,7 @@ test('sort: remote sort', async () => {
     });
 
     // 点击无效果
-    await wrapper.findAll('.table__header-cell_sort')[1].trigger('click')
+    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
     expect(wrapper.html()).not.toContain('table__header-cell_sort_asc');
     expect(wrapper.html()).toMatchSnapshot();
 });

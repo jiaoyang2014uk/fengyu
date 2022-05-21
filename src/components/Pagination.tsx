@@ -1,6 +1,6 @@
 import {defineComponent, ref, computed} from "vue";
-import {useClassMethod} from '../common/hooks'
-import {info, trace} from '../common/utils'
+import {useClassMethod} from '../common/hooks/usePagination'
+import {debug, trace, error, info} from '../common/logger'
 import type {PaginationProps} from "../common/types";
 import {paginationProps} from "../common/const";
 
@@ -13,17 +13,26 @@ export default defineComponent({
         const {previousCls, nextCls} = useClassMethod(props, totalPage.value);
         const onPageChange = (targetPage: number) => {
             if (targetPage <= 0 || targetPage > totalPage.value || isNaN(jumpPage.value)) {
+                error(
+                    '[Pagination-onPageChange]: ',
+                    `targetPage is not valid: ${targetPage}`,
+                    `targetPage should be a number between (0, ${totalPage.value}]`
+                )
                 return;
             }
-            trace(
-                'Pagination: ',
-                `onPageChange emit updatePage with targetPage: ${JSON.stringify(targetPage)}`
+            debug(
+                '[Pagination]: ',
+                `onPageChange emit updatePage with targetPage: ${targetPage}`
+            )
+            info(
+                '[Pagination]: ',
+                `exec onPageChange success`
             )
             emit('updatePage', targetPage);
         };
         return () => {
-            info(
-                'Pagination: ',
+            trace(
+                '[Pagination]: ',
                 `page: ${props.page}, total: ${props.total}, limit: ${props.limit}, totalPage: ${totalPage.value}`
             )
             return (

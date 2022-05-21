@@ -1,6 +1,6 @@
 import {defineComponent} from "vue";
 import TableHeaderCell from "./TableHeaderCell";
-import {info, trace} from "../common/utils";
+import {debug, trace} from "../common/logger";
 import type {TableHeaderProps, SortOptions} from "../common/types";
 import {tableHeaderProps} from "../common/const";
 
@@ -9,15 +9,15 @@ export default defineComponent({
     props: tableHeaderProps,
     setup(props: TableHeaderProps, {attrs, emit, slots}) {
         const onUpdateSortOptions = (options: SortOptions) => {
-            trace(
-                'TableHeader: ',
+            debug(
+                '[TableHeader]: ',
                 `onUpdateSortOptions emit updateSortOptions with options: ${JSON.stringify(options)}`
             )
             emit('updateSortOptions', options);
         };
         return () => {
-            info(
-                'TableHeader: ',
+            trace(
+                '[TableHeader]: ',
                 `columns: ${JSON.stringify(props.columns)}, sortOptions: ${JSON.stringify(props.sortOptions)}`
             )
             return (

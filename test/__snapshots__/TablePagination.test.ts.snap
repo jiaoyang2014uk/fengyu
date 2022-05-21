@@ -5,7 +5,9 @@ exports[`pagination: limit < data.length 1`] = `
   <table class=\\"table__table\\">
     <thead>
       <tr>
-        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span><span class=\\"table__header-cell_sort\\" style=\\"display: none;\\"></span></th>
+        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span>
+          <!---->
+        </th>
         <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Age</span><span class=\\"table__header-cell_sort\\"></span></th>
       </tr>
     </thead>
@@ -29,7 +31,9 @@ exports[`pagination: limit < data.length 2`] = `
   <table class=\\"table__table\\">
     <thead>
       <tr>
-        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span><span class=\\"table__header-cell_sort\\" style=\\"display: none;\\"></span></th>
+        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span>
+          <!---->
+        </th>
         <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Age</span><span class=\\"table__header-cell_sort\\"></span></th>
       </tr>
     </thead>
@@ -53,7 +57,9 @@ exports[`pagination: limit < data.length 3`] = `
   <table class=\\"table__table\\">
     <thead>
       <tr>
-        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span><span class=\\"table__header-cell_sort\\" style=\\"display: none;\\"></span></th>
+        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span>
+          <!---->
+        </th>
         <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Age</span><span class=\\"table__header-cell_sort\\"></span></th>
       </tr>
     </thead>
@@ -77,7 +83,9 @@ exports[`pagination: limit > data.length 1`] = `
   <table class=\\"table__table\\">
     <thead>
       <tr>
-        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span><span class=\\"table__header-cell_sort\\" style=\\"display: none;\\"></span></th>
+        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span>
+          <!---->
+        </th>
         <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Age</span><span class=\\"table__header-cell_sort\\"></span></th>
       </tr>
     </thead>
@@ -105,7 +113,9 @@ exports[`pagination: remote 1`] = `
   <table class=\\"table__table\\">
     <thead>
       <tr>
-        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span><span class=\\"table__header-cell_sort\\" style=\\"display: none;\\"></span></th>
+        <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Name</span>
+          <!---->
+        </th>
         <th class=\\"table__header-cell\\"><span class=\\"table__header-cell__value\\">Age</span><span class=\\"table__header-cell_sort\\"></span></th>
       </tr>
     </thead>

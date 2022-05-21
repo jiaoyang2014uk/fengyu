@@ -6,3 +6,11 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+declare module 'lodash/cloneDeep'
+
+declare let process: {
+  env: {
+    NODE_ENV: 'development' | 'production'
+  }
+}

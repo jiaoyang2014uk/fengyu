@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>57/57</span>
+                <span class='fraction'>61/61</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>57/57</span>
+                <span class='fraction'>61/61</span>
             </div>
         
             
@@ -120,7 +120,11 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -144,6 +148,7 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -155,6 +160,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -181,8 +189,8 @@
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 import Pagination from "./Pagination";
-import {useColumnsMethod, useFormattedDataMethod, usePaginationMethod} from '../common/hooks'
-import {info, trace} from "../common/utils";
+import {useColumnsMethod, useFormattedDataMethod, usePaginationMethod} from '../common/hooks/useTable'
+import {debug, trace} from "../common/logger";
 import '../common/Table.less';
 import type {TableProps, SortOptions} from "../common/types";
 import {tableProps} from "../common/const";
@@ -195,8 +203,9 @@ export default defineComponent({
         const formattedData = useFormattedDataMethod(props);
         const total = usePaginationMethod(props.paginationOptions, props.data);
         const onSortChange = (sortOptions: SortOptions) =&gt; {
-            trace(
-                'SimpleTable: ',
+            //todo 当前的sort状态的维护
+            debug(
+                '[SimpleTable]: ',
                 `onSortChange emit updateSortOptions with sortOptions: ${JSON.stringify(sortOptions)}`
             )
             emit('updateSortOptions', sortOptions);
@@ -206,15 +215,15 @@ export default defineComponent({
                 ...props.paginationOptions,
                 page
             };
-            trace(
-                'SimpleTable: ',
+            debug(
+                '[SimpleTable]: ',
                 `onUpdatePage emit updatePaginationOptions with options: ${JSON.stringify(options)}`
             )
             emit('updatePaginationOptions', options);
         };
         return () =&gt; {
-            info(
-                'SimpleTable: ',
+            trace(
+                '[SimpleTable]: ',
                 `columns: ${JSON.stringify(props.columns)}, data: ${JSON.stringify(props.data)}, sortOptions: ${JSON.stringify(props.sortOptions)}, paginationOptions: ${JSON.stringify(props.paginationOptions)}`
             )
             return (
@@ -224,11 +233,14 @@ export default defineComponent({
                                      onUpdateSortOptions={onSortChange}/&gt;
                         &lt;TableBody columns={bodyColumns} data={formattedData.value}/&gt;
                     &lt;/table&gt;
-                    &lt;Pagination v-show={props.paginationOptions.enable}
-                                limit={props.paginationOptions.limit}
-                                page={props.paginationOptions.page}
-                                total={total.value}
-                                onUpdatePage={onUpdatePage}/&gt;
+                    {
+                        props.paginationOptions.enable &amp;&amp;
+                        &lt;Pagination v-show={props.paginationOptions.enable}
+                                    limit={props.paginationOptions.limit}
+                                    page={props.paginationOptions.page}
+                                    total={total.value}
+                                    onUpdatePage={onUpdatePage}/&gt;
+                    }
                 &lt;/div&gt;
             );
         };
@@ -241,7 +253,7 @@ export default defineComponent({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon May 09 2022 17:11:44 GMT+0800 (中国标准时间)
+                at Sun May 22 2022 00:54:29 GMT+0800 (China Standard Time)
             </div>
         <script src="../prettify.js"></script>
         <script>

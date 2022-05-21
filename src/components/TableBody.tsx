@@ -1,6 +1,6 @@
 import {defineComponent} from "vue";
 import TableBodyCell from "./TableBodyCell";
-import {info} from "../common/utils";
+import {trace} from "../common/logger";
 import type {TableBodyProps} from "../common/types";
 import {tableBodyProps} from "../common/const";
 
@@ -9,8 +9,8 @@ export default defineComponent({
     props: tableBodyProps,
     setup(props: TableBodyProps, {attrs, emit, slots}) {
         return () => {
-            info(
-                'TableBody: ',
+            trace(
+                '[TableBody]: ',
                 `data: ${JSON.stringify(props.data)}, columns: ${JSON.stringify(props.columns)}`
             )
             return (

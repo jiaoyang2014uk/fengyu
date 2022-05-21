@@ -1,6 +1,6 @@
 import {defineComponent} from "vue";
-import {useSortMethod} from '../common/hooks'
-import {trace} from "../common/utils";
+import {useSortMethod} from '../common/hooks/useHeaderCell'
+import {debug, warn, info} from "../common/logger";
 import type {TableHeaderCellProps, SortOptions} from "../common/types";
 import {tableHeaderCellProps} from "../common/const";
 
@@ -11,6 +11,11 @@ export default defineComponent({
         let {nextOrder, sortCls} = useSortMethod(props);
         const onSortChange = () => {
             if (!props.column.sortable) {
+                warn(
+                    '[TableHeaderCell-onSortChange]: ',
+                    `${props.column.header} column is not sortable`,
+                    'Please click sortable column'
+                )
                 return;
             }
             const nextSortOptions: SortOptions = {
@@ -18,9 +23,13 @@ export default defineComponent({
                 sortBy: props.column.dataIndex,
                 sortOrder: nextOrder.value,
             };
-            trace(
-                'TableHeaderCell: ',
+            debug(
+                '[TableHeaderCell]: ',
                 `onSortChange emit updateSortOptions with nextSortOptions: ${JSON.stringify(nextSortOptions)}`
+            )
+            info(
+                '[TableHeaderCell]: ',
+                `exec onSortChange success`
             )
             emit('updateSortOptions', nextSortOptions);
         };
@@ -33,7 +42,7 @@ export default defineComponent({
                             data: props.column
                         }) : props.column.header}
                       </span>
-                    <span v-show={props.column.sortable} class={sortCls.value}></span>
+                    {props.column.sortable && <span class={sortCls.value}></span>}
                 </th>
             );
         };
