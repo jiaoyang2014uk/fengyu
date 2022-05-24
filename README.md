@@ -46,9 +46,8 @@
             sortOrder: SORT_ORDER.NONE
         },
         paginationOptions: {
-            enable: true,
-            limit: 2,
-            page: 1
+            pageSize: 2,
+            current: 1
         },
     }
 
@@ -113,13 +112,12 @@
 
 ##### paginationOptions配置
 
-| 名称 | 描述 |类型|默认值|可选值|
-|----- | ------|------|------|------|
-|enable | 是否支持分页 | boolean |false|false/true|
-|limit | 每页显示条目个数 | number |10||
-|page | 当前页 | number |1||
-|total | 总条目数 | number |0||
-|remote | 是否支持远端分页 | boolean |false|false/true|
+| 名称       | 描述 |类型|默认值|可选值|
+|----------| ------|------|------|------|
+| pageSize | 每页显示条目个数 | number |10||
+| current  | 当前页 | number |1||
+| total    | 总条目数 | number |0||
+| remote   | 是否支持远端分页 | boolean |false|false/true|
 
 ### Events
 

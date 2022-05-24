@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/27</span>
+                <span class='fraction'>37/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/27</span>
+                <span class='fraction'>37/37</span>
             </div>
         
             
@@ -89,7 +89,17 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -104,43 +114,63 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span></td><td class="text"><pre class="prettyprint lang-js">/**
- * Pagination hooks
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * SimpleTable hooks
  */
 &nbsp;
-import {computed} from "vue";
-import {trace} from "../logger";
-import type {PaginationOptions} from "../types";
+import {computed, reactive, SetupContext} from "vue";
+import lodashMerge from 'lodash/merge';
+import {debug, trace} from "../logger";
+import type {PaginationOptions, SortOptions, TableData} from "../types";
 &nbsp;
 /**
- * 分页上一页/下一页样式
- * @param {PaginationOptions} options 分页配置
- * @param {number} totalPage 总页数
- * @returns {string} previousCls 上一页样式
- * @returns {string} nextCls 下一页样式
+ * 当前current状态维护
+ * @returns {SortOptions} sortField 当前sort
+ * @returns {Function} onSortChange 排序函数
  */
-export function useClassMethod(options: PaginationOptions, totalPage: number) {
+export function usePagination(paginationOptions: PaginationOptions, data: TableData[], emit: SetupContext['emit']) {
     trace(
-        '[Pagination-useClassMethod]: ',
-        `options: ${JSON.stringify(options)}, totalPage: ${totalPage}`
+        '[TableHeaderCell-usePagination]: ',
+        `paginationOptions: ${JSON.stringify(paginationOptions)}, data: ${JSON.stringify(data)}`
     )
-    const previousCls = computed(() =&gt; `pagination__previous ${options.page &lt;= 1 ? <span class="branch-0 cbranch-no" title="branch not covered" >'disabled' : ''}`)</span>;
-    const nextCls = computed(() =&gt; `pagination__next ${options.page &gt;= totalPage ? 'disabled' : ''}`);
+&nbsp;
+    // 远端分页 total 由外部传入，本地分页 total = data.length
+    let total =  computed(() =&gt; paginationOptions.remote ? paginationOptions.total : data.length);
+    let paginationOpts = reactive(lodashMerge({}, paginationOptions, {total: total.value}))
+&nbsp;
+    const onChangePage = (targetPage: number) =&gt; {
+        paginationOpts.current = targetPage;
+        emit('onUpdatePage', targetPage);
+    }
+    debug(
+        '[SimpleTable-usePagination]: ',
+        `exec usePagination, result: ${JSON.stringify(paginationOpts)}`
+    )
     return {
-        previousCls,
-        nextCls
-    };
+        paginationOpts,
+        onChangePage
+    }
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -148,7 +178,7 @@ export function useClassMethod(options: PaginationOptions, totalPage: number) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sun May 22 2022 00:54:29 GMT+0800 (China Standard Time)
+                at Wed May 25 2022 00:59:48 GMT+0800 (China Standard Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -3,6 +3,7 @@ import {expect, test} from "vitest";
 import SimpleTable from "../src/components/SimpleTable";
 import type {TableData} from "../src/common/types";
 import {SORT_ORDER} from "../src/common/const";
+import TableBodyCell from "../src/components/TableBody/TableBodyCell";
 
 const mountTable = (options?: Record<string, unknown>) => mount(SimpleTable, options);
 
@@ -24,28 +25,33 @@ test('sort: build-in sort', async () => {
             }
         },
     });
-
     //点击一次升序
     await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
-    expect(wrapper.emitted('updateSortOptions')).toHaveLength(1)
-    expect(wrapper.emitted('updateSortOptions')).toEqual([[{
-        remote: undefined,
-        sortBy: 'age',
-        sortOrder: SORT_ORDER.ASC
-    }]])
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(wrapper.html()).toContain('table__header-cell_sort_asc');
+    expect(wrapper.findAllComponents(TableBodyCell)[1].html()).toContain('20');
+    expect(wrapper.findAllComponents(TableBodyCell)[3].html()).toContain('23');
+    expect(wrapper.findAllComponents(TableBodyCell)[5].html()).toContain('27');
 
     //点击一次降序
-    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
-    expect(wrapper.html()).toMatchSnapshot();
+    await wrapper.findAll('.table__header-cell_sort_asc')[0].trigger('click')
+    expect(wrapper.html()).not.toContain('table__header-cell_sort_asc');
+    expect(wrapper.html()).toContain('table__header-cell_sort_desc');
+    expect(wrapper.findAllComponents(TableBodyCell)[1].html()).toContain('27');
+    expect(wrapper.findAllComponents(TableBodyCell)[3].html()).toContain('23');
+    expect(wrapper.findAllComponents(TableBodyCell)[5].html()).toContain('20');
 
     //点击一次无序
-    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
-    expect(wrapper.html()).toMatchSnapshot();
+    await wrapper.findAll('.table__header-cell_sort_desc')[0].trigger('click')
+    expect(wrapper.html()).not.toContain('table__header-cell_sort_desc');
+    expect(wrapper.findAllComponents(TableBodyCell)[1].html()).toContain('27');
+    expect(wrapper.findAllComponents(TableBodyCell)[3].html()).toContain('23');
+    expect(wrapper.findAllComponents(TableBodyCell)[5].html()).toContain('20');
 
     //点击未排序列 无效
     await wrapper.findAll('.table__header-cell__value')[0].trigger('click')
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(wrapper.findAllComponents(TableBodyCell)[1].html()).toContain('27');
+    expect(wrapper.findAllComponents(TableBodyCell)[3].html()).toContain('23');
+    expect(wrapper.findAllComponents(TableBodyCell)[5].html()).toContain('20');
 });
 
 test('sort: custom sort', async () => {
@@ -66,19 +72,27 @@ test('sort: custom sort', async () => {
 
     //点击一次升序
     await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(wrapper.findAllComponents(TableBodyCell)[1].html()).toContain('27');
+    expect(wrapper.findAllComponents(TableBodyCell)[3].html()).toContain('23');
+    expect(wrapper.findAllComponents(TableBodyCell)[5].html()).toContain('20');
 
     //点击一次降序
-    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
-    expect(wrapper.html()).toMatchSnapshot();
+    await wrapper.findAll('.table__header-cell_sort_asc')[0].trigger('click')
+    expect(wrapper.findAllComponents(TableBodyCell)[1].html()).toContain('20');
+    expect(wrapper.findAllComponents(TableBodyCell)[3].html()).toContain('23');
+    expect(wrapper.findAllComponents(TableBodyCell)[5].html()).toContain('27');
 
     //点击一次无序
-    await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
-    expect(wrapper.html()).toMatchSnapshot();
+    await wrapper.findAll('.table__header-cell_sort_desc')[0].trigger('click')
+    expect(wrapper.findAllComponents(TableBodyCell)[1].html()).toContain('20');
+    expect(wrapper.findAllComponents(TableBodyCell)[3].html()).toContain('23');
+    expect(wrapper.findAllComponents(TableBodyCell)[5].html()).toContain('27');
 
     //点击未排序列 无效
     await wrapper.findAll('.table__header-cell__value')[0].trigger('click')
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(wrapper.findAllComponents(TableBodyCell)[1].html()).toContain('20');
+    expect(wrapper.findAllComponents(TableBodyCell)[3].html()).toContain('23');
+    expect(wrapper.findAllComponents(TableBodyCell)[5].html()).toContain('27');
 });
 
 test('sort: remote sort', async () => {
@@ -104,6 +118,8 @@ test('sort: remote sort', async () => {
     // 点击无效果
     await wrapper.findAll('.table__header-cell_sort')[0].trigger('click')
     expect(wrapper.html()).not.toContain('table__header-cell_sort_asc');
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(wrapper.findAllComponents(TableBodyCell)[1].html()).toContain('27');
+    expect(wrapper.findAllComponents(TableBodyCell)[3].html()).toContain('20');
+    expect(wrapper.findAllComponents(TableBodyCell)[5].html()).toContain('23');
 });
 

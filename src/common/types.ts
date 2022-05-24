@@ -6,9 +6,13 @@ import {ExtractPropTypes, VNode} from "vue";
 import {
     SORT_ORDER,
     tableProps,
+    tableColProps,
     tableHeaderProps,
+    tableHeaderRowProps,
     tableHeaderCellProps,
+    tableHeaderSortProps,
     tableBodyProps,
+    tableBodyRowProps,
     tableBodyCellProps,
     paginationProps
 } from './const'
@@ -63,12 +67,10 @@ export type SortOptions = {
 
 //  定义分页配置
 export type PaginationOptions = {
-    /* 是否支持分页 */
-    enable: boolean;
     /* 每页显示条目个数 */
-    limit: number;
+    pageSize: number;
     /* 页数 */
-    page: number;
+    current: number;
     /* 总条目数 */
     total: number;
     /* 是否支持远端分页 */
@@ -90,14 +92,26 @@ export type TableOptions = {
 //  定义 SimpleTable 的props类型
 export type TableProps = ExtractPropTypes<typeof tableProps>;
 
+//   定义 TableCol 的props类型
+export type TableColProps = ExtractPropTypes<typeof tableColProps>;
+
 //   定义 TableHeader 的props类型
 export type TableHeaderProps = ExtractPropTypes<typeof tableHeaderProps>;
+
+//   定义 TableHeaderRow 的props类型
+export type TableHeaderRowProps = ExtractPropTypes<typeof tableHeaderRowProps>;
 
 //   定义 TableHeaderCell 的props类型
 export type TableHeaderCellProps = ExtractPropTypes<typeof tableHeaderCellProps>;
 
+//   定义 TableHeaderSort 的props类型
+export type TableHeaderSortProps = ExtractPropTypes<typeof tableHeaderSortProps>;
+
 //   定义 TableBody 的props类型
 export type TableBodyProps = ExtractPropTypes<typeof tableBodyProps>;
+
+//   定义 TableBodyRow 的props类型
+export type TableBodyRowProps = ExtractPropTypes<typeof tableBodyRowProps>;
 
 //   定义 TableBodyCell 的props类型
 export type TableBodyCellProps = ExtractPropTypes<typeof tableBodyCellProps>;

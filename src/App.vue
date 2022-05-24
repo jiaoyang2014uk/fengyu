@@ -16,12 +16,11 @@
         ],
         sortOptions: {
             sortBy: '',
-            sortOrder: SORT_ORDER.NONE
+            sortOrder: SORT_ORDER.NONE,
         },
         paginationOptions: {
-            enable: true,
-            limit: 2,
-            page: 1
+            pageSize: 2,
+            current: 1,
         },
     }
 

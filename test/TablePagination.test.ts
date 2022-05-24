@@ -4,7 +4,7 @@ import SimpleTable from "../src/components/SimpleTable";
 
 const mountTable = (options?: Record<string, unknown>) => mount(SimpleTable, options);
 
-test('pagination: limit > data.length', async () => {
+test('pagination: limit > data.length',  () => {
     const wrapper = mountTable({
         props: {
             columns: [
@@ -17,9 +17,8 @@ test('pagination: limit > data.length', async () => {
                 {name: 'Alice', age: '23'}
             ],
             paginationOptions: {
-                enable: true,
-                limit: 5,
-                page: 1
+                pageSize: 5,
+                current: 1
             }
         },
     });
@@ -40,9 +39,8 @@ test('pagination: limit < data.length', async () => {
                 {name: 'Alice', age: '23'}
             ],
             paginationOptions: {
-                enable: true,
-                limit: 2,
-                page: 1
+                pageSize: 2,
+                current: 1
             }
         },
     });
@@ -52,17 +50,17 @@ test('pagination: limit < data.length', async () => {
 
     // 在第一页点击上一页，无效果
     await wrapper.findAll('.pagination__previous')[0].trigger('click')
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(wrapper.html()).toContain('Bob');
 
     // 点击下一页
     await wrapper.findAll('.pagination__next')[0].trigger('click')
-    expect(wrapper.emitted('updatePaginationOptions')).toHaveLength(1)
-    expect(wrapper.emitted('updatePaginationOptions')).toEqual([[{enable: true, limit: 2, page: 2}]])
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(wrapper.html()).not.toContain('Bob');
+    expect(wrapper.html()).toContain('Alice');
+
 
     // 在最后一页点击下一页，无效果
     await wrapper.findAll('.pagination__next')[0].trigger('click')
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(wrapper.html()).toContain('Alice');
 });
 
 test('pagination: remote', async () => {
@@ -78,9 +76,8 @@ test('pagination: remote', async () => {
                 {name: 'Alice', age: '23'}
             ],
             paginationOptions: {
-                enable: true,
-                limit: 2,
-                page: 1,
+                pageSize: 2,
+                current: 1,
                 remote: true
             }
         },
@@ -89,7 +86,7 @@ test('pagination: remote', async () => {
 
     // 点击下一页，无效果
     await wrapper.findAll('.pagination__next')[0].trigger('click')
-    expect(wrapper.html()).toMatchSnapshot();
+    expect(wrapper.html()).toContain('Bob');
 
 });
 

@@ -1,27 +1,37 @@
 /**
- * Pagination hooks
+ * SimpleTable hooks
  */
 
-import {computed} from "vue";
-import {trace} from "../logger";
-import type {PaginationOptions} from "../types";
+import {computed, reactive, SetupContext} from "vue";
+import lodashMerge from 'lodash/merge';
+import {debug, trace} from "../logger";
+import type {PaginationOptions, SortOptions, TableData} from "../types";
 
 /**
- * 分页上一页/下一页样式
- * @param {PaginationOptions} options 分页配置
- * @param {number} totalPage 总页数
- * @returns {string} previousCls 上一页样式
- * @returns {string} nextCls 下一页样式
+ * 当前current状态维护
+ * @returns {SortOptions} sortField 当前sort
+ * @returns {Function} onSortChange 排序函数
  */
-export function useClassMethod(options: PaginationOptions, totalPage: number) {
+export function usePagination(paginationOptions: PaginationOptions, data: TableData[], emit: SetupContext['emit']) {
     trace(
-        '[Pagination-useClassMethod]: ',
-        `options: ${JSON.stringify(options)}, totalPage: ${totalPage}`
+        '[TableHeaderCell-usePagination]: ',
+        `paginationOptions: ${JSON.stringify(paginationOptions)}, data: ${JSON.stringify(data)}`
     )
-    const previousCls = computed(() => `pagination__previous ${options.page <= 1 ? 'disabled' : ''}`);
-    const nextCls = computed(() => `pagination__next ${options.page >= totalPage ? 'disabled' : ''}`);
+
+    // 远端分页 total 由外部传入，本地分页 total = data.length
+    let total =  computed(() => paginationOptions.remote ? paginationOptions.total : data.length);
+    let paginationOpts = reactive(lodashMerge({}, paginationOptions, {total: total.value}))
+
+    const onChangePage = (targetPage: number) => {
+        paginationOpts.current = targetPage;
+        emit('updatePaginationOptions', targetPage);
+    }
+    debug(
+        '[SimpleTable-usePagination]: ',
+        `exec usePagination, result: ${JSON.stringify(paginationOpts)}`
+    )
     return {
-        previousCls,
-        nextCls
-    };
+        paginationOpts,
+        onChangePage
+    }
 }

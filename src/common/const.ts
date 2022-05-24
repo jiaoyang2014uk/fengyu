@@ -15,6 +15,19 @@ export enum SORT_ORDER {
     DESC = 'DESC'
 }
 
+//   定义排序样式常量
+export const sortClsMap = {
+    [SORT_ORDER.NONE]: 'table__header-cell_sort',
+    [SORT_ORDER.ASC]: 'table__header-cell_sort_asc',
+    [SORT_ORDER.DESC]: 'table__header-cell_sort_desc',
+};
+//   定义下一次排序顺序
+export const nextSortOrderMap = {
+    [SORT_ORDER.NONE]: SORT_ORDER.ASC,
+    [SORT_ORDER.ASC]: SORT_ORDER.DESC,
+    [SORT_ORDER.DESC]: SORT_ORDER.NONE
+};
+
 //  定义 SimpleTable 的props常量
 export const tableProps = {
     /* 表格列配置 */
@@ -38,6 +51,15 @@ export const tableProps = {
     },
 } as const;
 
+//   定义 TableCol 的props常量
+export const tableColProps = {
+    /* 表格列配置 */
+    columns: {
+        type: Array as PropType<ColumnOptions[]>,
+        default: () => [],
+    }
+} as const;
+
 //   定义 TableHeader 的props常量
 export const tableHeaderProps = {
     /* 表格列配置 */
@@ -50,8 +72,28 @@ export const tableHeaderProps = {
         type: Object as PropType<SortOptions>,
         default: () => ({})
     },
-    /* 更新排序方法 */
-    onUpdateSortOptions: {
+    /* 本地排序方法 */
+    onChangeSort: {
+        type: Function,
+        default: () => {
+        },
+    }
+} as const;
+
+//   定义 TableHeaderRow 的props常量
+export const tableHeaderRowProps = {
+    /* 表格列配置 */
+    columns: {
+        type: Array as PropType<ColumnOptions[]>,
+        default: () => [],
+    },
+    /* 排序配置 */
+    sortOptions: {
+        type: Object as PropType<SortOptions>,
+        default: () => ({})
+    },
+    /* 本地排序方法 */
+    onChangeSort: {
         type: Function,
         default: () => {
         },
@@ -70,8 +112,28 @@ export const tableHeaderCellProps = {
         type: Object as PropType<SortOptions>,
         default: () => ({})
     },
-    /* 更新排序方法 */
-    onUpdateSortOptions: {
+    /* 本地排序方法 */
+    onChangeSort: {
+        type: Function,
+        default: () => {
+        },
+    }
+} as const;
+
+//   定义 TableHeaderSort 的props常量
+export const tableHeaderSortProps = {
+    /* 表格列配置 */
+    column: {
+        type: Object as PropType<ColumnOptions>,
+        default: () => [],
+    },
+    /* 排序配置 */
+    sortOptions: {
+        type: Object as PropType<SortOptions>,
+        default: () => ({})
+    },
+    /* 本地排序方法 */
+    onChangeSort: {
         type: Function,
         default: () => {
         },
@@ -88,6 +150,25 @@ export const tableBodyProps = {
     /* 显示数据配置 */
     data: {
         type: Array as PropType<TableData[]>,
+        default: () => [],
+    },
+} as const;
+
+//   定义 TableBodyRow 的props常量
+export const tableBodyRowProps = {
+    /* 表格列配置 */
+    columns: {
+        type: Array as PropType<ColumnOptions[]>,
+        default: () => [],
+    },
+    /* 显示数据配置 */
+    data: {
+        type: Array as PropType<TableData[]>,
+        default: () => [],
+    },
+    /* 每行数据 */
+    record: {
+        type: Object as PropType<TableData>,
         default: () => [],
     },
 } as const;
@@ -113,18 +194,13 @@ export const paginationProps = {
         type: Boolean,
         default: false
     },
-    /* 是否支持分页 */
-    enable: {
-        type: Boolean,
-        default: true
-    },
     /* 每页显示条目个数 */
-    limit: {
+    pageSize: {
         type: Number,
         default: 10
     },
     /* 页数 */
-    page: {
+    current: {
         type: Number,
         default: 1
     },
@@ -133,8 +209,8 @@ export const paginationProps = {
         type: Number,
         default: 0
     },
-    /* 更新分页方法 */
-    onUpdatePage: {
+    /* 本地分页方法 */
+    onChangePage: {
         type: Function,
         default: () => {
         },

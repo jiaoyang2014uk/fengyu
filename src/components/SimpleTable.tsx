@@ -1,8 +1,13 @@
-import {defineComponent} from "vue";
-import TableHeader from "./TableHeader";
-import TableBody from "./TableBody";
+import {defineComponent, reactive} from "vue";
+import TableCol from "./TableCol";
+import TableHeader from "./TableHeader/TableHeader";
+import TableBody from "./TableBody/TableBody";
 import Pagination from "./Pagination";
-import {useColumnsMethod, useFormattedDataMethod, usePaginationMethod} from '../common/hooks/useTable'
+import lodashCloneDeep from "lodash/cloneDeep";
+import {useFormattedData} from '../common/hooks/useFormattedData'
+import {useSortable} from '../common/hooks/useSortable'
+import {usePagination} from '../common/hooks/usePagination'
+import {useColumns} from '../common/hooks/useColumns'
 import {debug, trace} from "../common/logger";
 import '../common/Table.less';
 import type {TableProps, SortOptions} from "../common/types";
@@ -12,48 +17,29 @@ export default defineComponent({
     name: "SimpleTable",
     props: tableProps,
     setup(props: TableProps, {attrs, emit, slots}) {
-        const {headerColumns, bodyColumns} = useColumnsMethod(props.columns, slots);
-        const formattedData = useFormattedDataMethod(props);
-        const total = usePaginationMethod(props.paginationOptions, props.data);
-        const onSortChange = (sortOptions: SortOptions) => {
-            //todo 当前的sort状态的维护
-            debug(
-                '[SimpleTable]: ',
-                `onSortChange emit updateSortOptions with sortOptions: ${JSON.stringify(sortOptions)}`
-            )
-            emit('updateSortOptions', sortOptions);
-        };
-        const onUpdatePage = (page: number) => {
-            const options = {
-                ...props.paginationOptions,
-                page
-            };
-            debug(
-                '[SimpleTable]: ',
-                `onUpdatePage emit updatePaginationOptions with options: ${JSON.stringify(options)}`
-            )
-            emit('updatePaginationOptions', options);
-        };
+        const cloneDeepProps = lodashCloneDeep(props)
+        const {headerColumns, bodyColumns} = useColumns(cloneDeepProps.columns, slots);
+        const {sortField, onChangeSort} = useSortable(cloneDeepProps.sortOptions, emit);
+        const {paginationOpts, onChangePage} = usePagination(cloneDeepProps.paginationOptions, cloneDeepProps.data, emit)
+        const formattedData = useFormattedData(cloneDeepProps, sortField, paginationOpts);
         return () => {
             trace(
                 '[SimpleTable]: ',
-                `columns: ${JSON.stringify(props.columns)}, data: ${JSON.stringify(props.data)}, sortOptions: ${JSON.stringify(props.sortOptions)}, paginationOptions: ${JSON.stringify(props.paginationOptions)}`
+                `columns: ${JSON.stringify(cloneDeepProps.columns)}, data: ${JSON.stringify(cloneDeepProps.data)}, sortOptions: ${JSON.stringify(cloneDeepProps.sortOptions)}, paginationOptions: ${JSON.stringify(cloneDeepProps.paginationOptions)}`
             )
             return (
                 <div class='table'>
                     <table class="table__table">
-                        <TableHeader columns={headerColumns} sortOptions={props.sortOptions}
-                                     onUpdateSortOptions={onSortChange}/>
+                        <TableCol columns={headerColumns}/>
+                        <TableHeader columns={headerColumns}
+                                     sortOptions={sortField}
+                                     onChangeSort={onChangeSort}/>
                         <TableBody columns={bodyColumns} data={formattedData.value}/>
                     </table>
-                    {
-                        props.paginationOptions.enable &&
-                        <Pagination v-show={props.paginationOptions.enable}
-                                    limit={props.paginationOptions.limit}
-                                    page={props.paginationOptions.page}
-                                    total={total.value}
-                                    onUpdatePage={onUpdatePage}/>
-                    }
+                    <Pagination pageSize={paginationOpts.pageSize}
+                                current={paginationOpts.current}
+                                total={paginationOpts.total}
+                                onChangePage={onChangePage}/>
                 </div>
             );
         };
