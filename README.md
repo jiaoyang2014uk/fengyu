@@ -33,7 +33,7 @@
 
     const tableOptions = {
         columns: [
-            {header: 'Name', dataIndex: 'name'},
+            {header: 'Name', dataIndex: 'name', width: 200},
             {header: 'Age', dataIndex: 'age', sortable: true}
         ],
         data: [
@@ -94,13 +94,14 @@
 
 ##### ColumnOptions配置
 
-| 名称 | 描述 |类型|默认值|可选值|
-|----- | ------|------|------|------|
-|header | 表头显示的文案 | string |||
-|dataIndex | 表头取值的key | string |||
-|sortable | 是否支持排序 | boolean |false|false/true|
-|sortFn | 自定义排序函数 | (a: TableData, b: TableData) => number |||
-|slot | 表头插槽/列插槽 | TableHeaderSlot & TableBodySlot |||
+| 名称        | 描述       | 类型                                     |默认值|可选值|
+|-----------|----------|----------------------------------------|------|------|
+| header    | 表头显示的文案  | string                                 |||
+| dataIndex | 表头取值的key | string                                 |||
+| width     | 列宽     | number                                 |||
+| sortable  | 是否支持排序   | boolean                                |false|false/true|
+| sortFn    | 自定义排序函数  | (a: TableData, b: TableData) => number |||
+| slot      | 表头插槽/列插槽 | TableHeaderSlot & TableBodySlot        |||
 
 ##### sortOptions配置
 

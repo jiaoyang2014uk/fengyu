@@ -1,21 +1,12 @@
-import {mount} from "@vue/test-utils";
 import {expect, test} from "vitest";
-import SimpleTable from "../src/components/SimpleTable";
+import {mountTable, propsPartial} from './common'
+import cloneDeep from 'lodash/cloneDeep';
+import TableBodyCell from "../src/components/TableBody/TableBodyCell";
 
-const mountTable = (options?: Record<string, unknown>) => mount(SimpleTable, options);
-
-test('pagination: limit > data.length',  () => {
+test('pagination: pageSize > data.length', () => {
     const wrapper = mountTable({
         props: {
-            columns: [
-                {header: 'Name', dataIndex: 'name'},
-                {header: 'Age', dataIndex: 'age', sortable: true}
-            ],
-            data: [
-                {name: 'Bob', age: '27'},
-                {name: 'Tom', age: '20'},
-                {name: 'Alice', age: '23'}
-            ],
+            ...cloneDeep(propsPartial),
             paginationOptions: {
                 pageSize: 5,
                 current: 1
@@ -26,18 +17,10 @@ test('pagination: limit > data.length',  () => {
     expect(wrapper.html()).toMatchSnapshot();
 });
 
-test('pagination: limit < data.length', async () => {
+test('pagination: pageSize < data.length', async () => {
     const wrapper = mountTable({
         props: {
-            columns: [
-                {header: 'Name', dataIndex: 'name'},
-                {header: 'Age', dataIndex: 'age', sortable: true}
-            ],
-            data: [
-                {name: 'Bob', age: '27'},
-                {name: 'Tom', age: '20'},
-                {name: 'Alice', age: '23'}
-            ],
+            ...cloneDeep(propsPartial),
             paginationOptions: {
                 pageSize: 2,
                 current: 1
@@ -46,35 +29,32 @@ test('pagination: limit < data.length', async () => {
     });
 
     //共2页，当前第1页
-    expect(wrapper.html()).toContain('( 1 / 2 )');
+    expect(wrapper.find('.pagination__page').html()).toContain('( 1 / 2 )');
 
     // 在第一页点击上一页，无效果
     await wrapper.findAll('.pagination__previous')[0].trigger('click')
-    expect(wrapper.html()).toContain('Bob');
+    expect(wrapper.findAllComponents(TableBodyCell)[0].html()).toContain('Bob');
 
     // 点击下一页
     await wrapper.findAll('.pagination__next')[0].trigger('click')
-    expect(wrapper.html()).not.toContain('Bob');
-    expect(wrapper.html()).toContain('Alice');
+    expect(wrapper.findAllComponents(TableBodyCell)[0].html()).not.toContain('Bob');
+    expect(wrapper.findAllComponents(TableBodyCell)[0].html()).toContain('Alice');
 
 
     // 在最后一页点击下一页，无效果
     await wrapper.findAll('.pagination__next')[0].trigger('click')
-    expect(wrapper.html()).toContain('Alice');
+    expect(wrapper.findAllComponents(TableBodyCell)[0].html()).toContain('Alice');
+
+    // 跳页到第一页
+    wrapper.findAll('.pagination__goto-input')[0].setValue(1)
+    await wrapper.findAll('.pagination__goto-input')[0].trigger('blur')
+    expect(wrapper.findAllComponents(TableBodyCell)[0].html()).toContain('Bob');
 });
 
 test('pagination: remote', async () => {
     const wrapper = mountTable({
         props: {
-            columns: [
-                {header: 'Name', dataIndex: 'name'},
-                {header: 'Age', dataIndex: 'age', sortable: true}
-            ],
-            data: [
-                {name: 'Bob', age: '27'},
-                {name: 'Tom', age: '20'},
-                {name: 'Alice', age: '23'}
-            ],
+            ...propsPartial,
             paginationOptions: {
                 pageSize: 2,
                 current: 1,
@@ -86,7 +66,7 @@ test('pagination: remote', async () => {
 
     // 点击下一页，无效果
     await wrapper.findAll('.pagination__next')[0].trigger('click')
-    expect(wrapper.html()).toContain('Bob');
+    expect(wrapper.findAllComponents(TableBodyCell)[0].html()).toContain('Bob');
 
 });
 

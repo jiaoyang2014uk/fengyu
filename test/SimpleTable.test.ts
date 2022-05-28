@@ -1,8 +1,6 @@
-import {mount} from "@vue/test-utils";
 import {expect, test} from "vitest";
-import SimpleTable from "../src/components/SimpleTable";
-
-const mountTable = (options?: Record<string, unknown>) => mount(SimpleTable, options);
+import {mountTable, propsPartial} from './common'
+import cloneDeep from 'lodash/cloneDeep';
 
 test("mount component without props", () => {
     const wrapper = mountTable();
@@ -11,36 +9,14 @@ test("mount component without props", () => {
 });
 
 test('props with columns and data', async () => {
-    const wrapper = mountTable({
-        props: {
-            columns: [
-                {header: 'Name', dataIndex: 'name'},
-                {header: 'Age', dataIndex: 'age', sortable: true}
-            ],
-            data: [
-                {name: 'Bob', age: '27'},
-                {name: 'Tom', age: '20'},
-                {name: 'Alice', age: '23'}
-            ]
-        }
-    });
+    const wrapper = mountTable({props: cloneDeep(propsPartial)});
 
     expect(wrapper.html()).toMatchSnapshot();
 });
 
 test('header slot and body slot', async () => {
     const wrapper = mountTable({
-        props: {
-            columns: [
-                {header: 'Name', dataIndex: 'name'},
-                {header: 'Age', dataIndex: 'age', sortable: true}
-            ],
-            data: [
-                {name: 'Bob', age: '27'},
-                {name: 'Tom', age: '20'},
-                {name: 'Alice', age: '23'}
-            ]
-        },
+        props: cloneDeep(propsPartial),
         slots: {
             header__name: 'NAME',
             body__age: '<template v-slot:body__age="obj">\n' +

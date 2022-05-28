@@ -7,7 +7,7 @@ import {paginationProps} from "../common/const";
 export default defineComponent({
     name: "Pagination",
     props: paginationProps,
-    setup(props: PaginationProps, {attrs, emit, slots}) {
+    setup(props: PaginationProps, {emit}) {
         let jumpPage = ref(0)
         const totalPage = computed(() => Math.ceil(props.total / props.pageSize));
         const {previousCls, nextCls} = useClass(props, totalPage.value);

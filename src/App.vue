@@ -6,7 +6,7 @@
 
     const tableOptions = {
         columns: [
-            {header: 'Name', dataIndex: 'name'},
+            {header: 'Name', dataIndex: 'name', width: 200},
             {header: 'Age', dataIndex: 'age', sortable: true}
         ],
         data: [

@@ -7,7 +7,7 @@ import {tableBodyRowProps} from "../../common/const";
 export default defineComponent({
     name: "TableBodyRow",
     props: tableBodyRowProps,
-    setup(props: TableBodyRowProps, {attrs, emit, slots}) {
+    setup(props: TableBodyRowProps) {
         return () => {
             trace(
                 '[TableBodyRow]: ',

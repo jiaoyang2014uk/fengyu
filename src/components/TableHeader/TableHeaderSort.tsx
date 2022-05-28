@@ -7,10 +7,10 @@ import {tableHeaderSortProps} from "../../common/const";
 export default defineComponent({
     name: "TableHeaderSort",
     props: tableHeaderSortProps,
-    setup(props: TableHeaderSortProps, {attrs, emit, slots}) {
+    setup(props: TableHeaderSortProps, {emit}) {
         let {nextOrder, sortCls} = useSortData(props);
-        const onChangeSort = (event:MouseEvent) => {
-            event.stopPropagation()
+        const onChangeSort = (event: MouseEvent) => {
+            event.stopPropagation() //防止冒泡到上层组件，造成用户点击一次，实际出现两次效果
             const nextSortOptions: SortOptions = {
                 remote: props.sortOptions.remote,
                 sortBy: props.column.dataIndex,

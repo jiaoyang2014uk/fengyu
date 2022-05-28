@@ -4,7 +4,7 @@
 
 import {computed} from "vue";
 import lodashIsNaN from 'lodash/isNaN'
-import {debug, trace} from "../logger";
+import {debug, trace, error} from "../logger";
 import type {ColumnOptions, PaginationOptions, SortOptions, TableData} from "../types";
 import {SORT_ORDER} from "../const";
 
@@ -15,7 +15,7 @@ import {SORT_ORDER} from "../const";
  * @param {ColumnOptions[]} columns 表格列配置
  * @returns {TableData[]} data 格式化后数据
  */
-export function sortHandler({data, sortOptions, columns}: {
+function sortHandler({data, sortOptions, columns}: {
     data: TableData[],
     sortOptions: SortOptions,
     columns: ColumnOptions[]
@@ -48,7 +48,7 @@ export function sortHandler({data, sortOptions, columns}: {
  * @param {PaginationOptions} paginationOptions 分页配置
  * @returns {TableData[]} data 格式化后数据
  */
-export function paginationHandler({data, paginationOptions}: {
+function paginationHandler({data, paginationOptions}: {
     data: TableData[],
     paginationOptions: PaginationOptions
 }) {
@@ -62,11 +62,18 @@ export function paginationHandler({data, paginationOptions}: {
 
     let start = paginationOptions.pageSize * (paginationOptions.current - 1);
     let end = start + paginationOptions.pageSize;
-    if (lodashIsNaN(start)) {
-        start = 0;
-    }
-    if (lodashIsNaN(end)) {
-        end = data.length;
+    if (lodashIsNaN(start) || lodashIsNaN(end)) {
+        error(
+            '[SimpleTable-paginationHandler]: ',
+            `pageSize or current is not a number. pageSize: ${paginationOptions.pageSize}, current: ${paginationOptions.current} `,
+            `Please correct pageSize or current with valid number`,
+        )
+        if (lodashIsNaN(start)) {
+            start = 0;
+        }
+        if (lodashIsNaN(end)) {
+            end = data.length;
+        }
     }
     debug(
         '[SimpleTable-paginationHandler]: ',

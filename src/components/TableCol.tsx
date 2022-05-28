@@ -6,7 +6,7 @@ import {tableColProps} from "../common/const";
 export default defineComponent({
     name: "TableCol",
     props: tableColProps,
-    setup(props: TableColProps, {attrs, emit, slots}) {
+    setup(props: TableColProps) {
         return () => {
             trace(
                 '[TableCol]: ',
@@ -14,7 +14,7 @@ export default defineComponent({
             )
             return (
                 <colgroup>
-                    {props.columns.map(() => <col/>)}
+                    {props.columns.map((column) => <col width={column.width}/>)}
                 </colgroup>
             );
         };

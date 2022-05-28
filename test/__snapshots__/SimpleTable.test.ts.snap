@@ -4,7 +4,7 @@ exports[`header slot and body slot 1`] = `
 "<div class=\\"table\\">
   <table class=\\"table__table\\">
     <colgroup>
-      <col>
+      <col width=\\"200\\">
       <col>
     </colgroup>
     <thead>
@@ -51,7 +51,7 @@ exports[`props with columns and data 1`] = `
 "<div class=\\"table\\">
   <table class=\\"table__table\\">
     <colgroup>
-      <col>
+      <col width=\\"200\\">
       <col>
     </colgroup>
     <thead>

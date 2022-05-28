@@ -7,7 +7,7 @@ import {tableBodyProps} from "../../common/const";
 export default defineComponent({
     name: "TableBody",
     props: tableBodyProps,
-    setup(props: TableBodyProps, {attrs, emit, slots}) {
+    setup(props: TableBodyProps) {
         return () => {
             trace(
                 '[TableBody]: ',
@@ -15,11 +15,11 @@ export default defineComponent({
             )
             return (
                 <tbody>
-                    {props.data.map(record => (
-                        <TableBodyRow record={record}
-                                      columns={props.columns}
-                                      data={props.data}/>
-                    ))}
+                {props.data.map(record => (
+                    <TableBodyRow record={record}
+                                  columns={props.columns}
+                                  data={props.data}/>
+                ))}
                 </tbody>
             );
         };

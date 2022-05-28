@@ -1,11 +1,11 @@
 import {defineComponent, computed} from "vue";
-import type{TableBodyCellProps} from "../../common/types";
+import type {TableBodyCellProps} from "../../common/types";
 import {tableBodyCellProps} from "../../common/const";
 
 export default defineComponent({
     name: "TableBodyCell",
     props: tableBodyCellProps,
-    setup(props: TableBodyCellProps, {attrs, emit, slots}) {
+    setup(props: TableBodyCellProps) {
         const value = computed(() => props.data[props.column.dataIndex]);
         return () => {
             return (

@@ -58,7 +58,6 @@ export function log(levelType = LEVEL_TYPE.info, ...args: unknown[]) {
             console.error(logInfo, ...args);
             break;
         default:
-            console.info(logInfo, ...args);
             break;
     }
 }
@@ -88,8 +87,8 @@ export function error(...args: unknown[]) {
     log(LEVEL_TYPE.error, ...args)
 }
 
-export function setLogLevel(level = LEVEL_TYPE.info) {
-    openLevels = levels[level] || []
+function setLogLevel(level = LEVEL_TYPE.info) {
+    openLevels = levels[level]
 }
 
 if (isDev) {

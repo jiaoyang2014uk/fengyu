@@ -20,11 +20,11 @@ export function useColumns(columns: ColumnOptions[], slots: Slots) {
     const headerColumns = (columns?.map(column => ({
         ...column,
         slot: slots[`header__${column.dataIndex}`]
-    })) || []) as ColumnOptions[];
+    }))) as ColumnOptions[];
     const bodyColumns = (columns?.map(column => ({
         ...column,
         slot: slots[`body__${column.dataIndex}`]
-    })) || []) as ColumnOptions[];
+    }))) as ColumnOptions[];
 
     return {
         headerColumns,

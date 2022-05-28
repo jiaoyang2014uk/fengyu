@@ -8,7 +8,7 @@ import {tableHeaderCellProps} from "../../common/const";
 export default defineComponent({
     name: "TableHeaderCell",
     props: tableHeaderCellProps,
-    setup(props: TableHeaderCellProps, {attrs, emit, slots}) {
+    setup(props: TableHeaderCellProps, {emit}) {
         let {nextOrder} = useSortData(props);
         const onChangeSort = () => {
             if (!props.column.sortable) {

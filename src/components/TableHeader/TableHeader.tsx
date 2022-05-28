@@ -7,7 +7,7 @@ import {tableHeaderProps} from "../../common/const";
 export default defineComponent({
     name: "TableHeader",
     props: tableHeaderProps,
-    setup(props: TableHeaderProps, {attrs, emit, slots}) {
+    setup(props: TableHeaderProps, {emit}) {
         const onChangeSort = (options: SortOptions) => {
             debug(
                 '[TableHeader]: ',

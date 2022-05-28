@@ -1,31 +1,43 @@
-import {defineComponent, reactive} from "vue";
+import {defineComponent, watch, ref} from "vue";
 import TableCol from "./TableCol";
 import TableHeader from "./TableHeader/TableHeader";
 import TableBody from "./TableBody/TableBody";
 import Pagination from "./Pagination";
-import lodashCloneDeep from "lodash/cloneDeep";
+import lodash from "lodash";
 import {useFormattedData} from '../common/hooks/useFormattedData'
 import {useSortable} from '../common/hooks/useSortable'
 import {usePagination} from '../common/hooks/usePagination'
 import {useColumns} from '../common/hooks/useColumns'
-import {debug, trace} from "../common/logger";
+import {trace} from "../common/logger";
 import '../common/Table.less';
-import type {TableProps, SortOptions} from "../common/types";
+import type {TableProps, TableData} from "../common/types";
 import {tableProps} from "../common/const";
 
 export default defineComponent({
     name: "SimpleTable",
     props: tableProps,
-    setup(props: TableProps, {attrs, emit, slots}) {
-        const cloneDeepProps = lodashCloneDeep(props)
-        const {headerColumns, bodyColumns} = useColumns(cloneDeepProps.columns, slots);
-        const {sortField, onChangeSort} = useSortable(cloneDeepProps.sortOptions, emit);
-        const {paginationOpts, onChangePage} = usePagination(cloneDeepProps.paginationOptions, cloneDeepProps.data, emit)
-        const formattedData = useFormattedData(cloneDeepProps, sortField, paginationOpts);
+    setup(props: TableProps, {emit, slots}) {
+        let cloneDeepData = ref<TableData[]>(props.data)
+        const {headerColumns, bodyColumns} = useColumns(props.columns, slots);
+        const {sortField, onChangeSort} = useSortable(props.sortOptions, emit);
+        const {
+            paginationOpts,
+            onChangePage
+        } = usePagination(props.paginationOptions, cloneDeepData.value, emit)
+        const formattedData = useFormattedData({
+            data: cloneDeepData.value,
+            columns: props.columns,
+        }, sortField, paginationOpts);
+
+        watch(() => props.data, (newVal, oldVal) => {
+            if (!lodash.isEqual(newVal, oldVal)) {
+                cloneDeepData.value = newVal
+            }
+        }, {deep: true, immediate: true})
         return () => {
             trace(
                 '[SimpleTable]: ',
-                `columns: ${JSON.stringify(cloneDeepProps.columns)}, data: ${JSON.stringify(cloneDeepProps.data)}, sortOptions: ${JSON.stringify(cloneDeepProps.sortOptions)}, paginationOptions: ${JSON.stringify(cloneDeepProps.paginationOptions)}`
+                `columns: ${JSON.stringify(props.columns)}, data: ${JSON.stringify(cloneDeepData.value)}, sortOptions: ${JSON.stringify(props.sortOptions)}, paginationOptions: ${JSON.stringify(props.paginationOptions)}`
             )
             return (
                 <div class='table'>

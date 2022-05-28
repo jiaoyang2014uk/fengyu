@@ -30,6 +30,8 @@ export type ColumnOptions = {
     header: string;
     /* 表头取值的key */
     dataIndex: string;
+    /* 列宽 */
+    width: number;
     /* 是否支持排序 */
     sortable?: boolean;
     /* 自定义排序函数 */

@@ -56,7 +56,7 @@ export const tableColProps = {
     /* 表格列配置 */
     columns: {
         type: Array as PropType<ColumnOptions[]>,
-        default: () => [],
+        required: true,
     }
 } as const;
 
@@ -65,18 +65,17 @@ export const tableHeaderProps = {
     /* 表格列配置 */
     columns: {
         type: Array as PropType<ColumnOptions[]>,
-        default: () => [],
+        required: true,
     },
     /* 排序配置 */
     sortOptions: {
         type: Object as PropType<SortOptions>,
-        default: () => ({})
+        required: true,
     },
     /* 本地排序方法 */
     onChangeSort: {
         type: Function,
-        default: () => {
-        },
+        required: true,
     }
 } as const;
 
@@ -85,18 +84,17 @@ export const tableHeaderRowProps = {
     /* 表格列配置 */
     columns: {
         type: Array as PropType<ColumnOptions[]>,
-        default: () => [],
+        required: true,
     },
     /* 排序配置 */
     sortOptions: {
         type: Object as PropType<SortOptions>,
-        default: () => ({})
+        required: true,
     },
     /* 本地排序方法 */
     onChangeSort: {
         type: Function,
-        default: () => {
-        },
+        required: true,
     }
 } as const;
 
@@ -105,18 +103,17 @@ export const tableHeaderCellProps = {
     /* 表格列配置 */
     column: {
         type: Object as PropType<ColumnOptions>,
-        default: () => [],
+        required: true,
     },
     /* 排序配置 */
     sortOptions: {
         type: Object as PropType<SortOptions>,
-        default: () => ({})
+        required: true,
     },
     /* 本地排序方法 */
     onChangeSort: {
         type: Function,
-        default: () => {
-        },
+        required: true,
     }
 } as const;
 
@@ -125,18 +122,17 @@ export const tableHeaderSortProps = {
     /* 表格列配置 */
     column: {
         type: Object as PropType<ColumnOptions>,
-        default: () => [],
+        required: true,
     },
     /* 排序配置 */
     sortOptions: {
         type: Object as PropType<SortOptions>,
-        default: () => ({})
+        required: true,
     },
     /* 本地排序方法 */
     onChangeSort: {
         type: Function,
-        default: () => {
-        },
+        required: true,
     }
 } as const;
 
@@ -145,12 +141,12 @@ export const tableBodyProps = {
     /* 表格列配置 */
     columns: {
         type: Array as PropType<ColumnOptions[]>,
-        default: () => [],
+        required: true,
     },
     /* 显示数据配置 */
     data: {
         type: Array as PropType<TableData[]>,
-        default: () => [],
+        required: true,
     },
 } as const;
 
@@ -159,17 +155,17 @@ export const tableBodyRowProps = {
     /* 表格列配置 */
     columns: {
         type: Array as PropType<ColumnOptions[]>,
-        default: () => [],
+        required: true,
     },
     /* 显示数据配置 */
     data: {
         type: Array as PropType<TableData[]>,
-        default: () => [],
+        required: true,
     },
     /* 每行数据 */
     record: {
         type: Object as PropType<TableData>,
-        default: () => [],
+        required: true,
     },
 } as const;
 
@@ -178,12 +174,12 @@ export const tableBodyCellProps = {
     /* 表格列配置 */
     column: {
         type: Object as PropType<ColumnOptions>,
-        default: () => ({}),
+        required: true,
     },
     /* 显示数据配置 */
     data: {
         type: Object as PropType<TableData>,
-        default: () => ({}),
+        required: true,
     },
 } as const;
 
@@ -212,7 +208,6 @@ export const paginationProps = {
     /* 本地分页方法 */
     onChangePage: {
         type: Function,
-        default: () => {
-        },
+        required: true,
     }
 } as const;
